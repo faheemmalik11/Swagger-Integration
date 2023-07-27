@@ -123,7 +123,44 @@ class AdministrationController extends Controller
             }
 
         }
-  
+  /**
+        * @OA\Get(
+        * path="/administration/logout",
+        * operationId="Logout",
+        * tags={"Administration"},
+
+        * summary="Administartion Logout",
+        * description="Logout Administartion Here",
+
+        *      
+        *      @OA\Response(
+        *          response=200,
+        *          description="Logout Successfully",
+        *          @OA\JsonContent(            
+        *               example={ 
+        *                   "code": 200,
+        *                   "message": "Logout successful",      
+        *                   "timestamp": "2023-07-26T08:24:36.784868Z"
+        *            }
+        * 
+        *       ),
+        *       ),
+        *      @OA\Response(
+        *          response=400,
+        *          description="Bad Request",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "error": "Invalid token",
+        *                   "message": "The provided token is not in the expected format or is malformed."
+        *               }
+
+        * 
+        *       ),
+        *       ),
+        *     security={{"bearer_token":{}}}
+        * ),
+        */
+
         public function logout(): JsonResponse
         {
             $timestamp = Carbon::now();
@@ -135,6 +172,84 @@ class AdministrationController extends Controller
             ]);
         }
 
+           /**
+        * @OA\Put(
+        * path="/administration/update",
+        * operationId="Update",
+        * tags={"Administration"},
+        * summary="Administartion update",
+        * description="update Administartion Here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"name", "email"},
+        *               @OA\Property(property="name", type="string"),
+        *               @OA\Property(property="email", type="email"),
+        *            ),
+        *        ),
+        *    ),
+        *      
+        *      @OA\Response(
+        *          response=200,
+        *          description="updated Successfully",
+        *          @OA\JsonContent(            
+        *               example={
+        *            "code": 200,
+        *            "message": "administration updated successfully",
+        *            "data": {
+        *                "user": {
+        *                    "id": 1,
+        *                    "name": "John",
+        *                    "email": "johnn@example.com",
+        *                    "created_at": "2023-07-25T14:33:21.000000Z",
+        *                    "updated_at": "2023-07-26T10:58:04.000000Z"
+        *                },
+        *                "timestamp": "2023-07-26T10:58:04.524072Z"
+        *            }
+        *        })
+        *       ),
+        *      @OA\Response(
+        *          response=404,
+        *          description="Resource not found",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "code": 404,
+        *                   "message": "Administration not found",
+        *               }
+
+        * 
+        *       ),
+        *       ),
+        *      @OA\Response(
+        *          response=400,
+        *          description="Bad Request",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "error": "Invalid token",
+        *                   "message": "The provided token is not in the expected format or is malformed."
+        *               }
+
+        * 
+        *       ),
+        *       ),
+        *       @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "code": "422",
+        *                   "message": "The administration could not be updated. Please check the provided data and try again.",
+        *               }
+        *       ),
+        *       ),
+        *     security={{"bearer_token":{}}}
+
+
+        * )
+        */
         public function update(Request $request) {
 
 
@@ -177,7 +292,91 @@ class AdministrationController extends Controller
             ]);
         }
           
-    
+           /**
+        * @OA\Put(
+        * path="/administration/resetPassword",
+        * operationId="resetPassword",
+        * tags={"Administration"},
+        * summary="Administartion Update Password",
+        * description="Update Administartion Password Here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"current_password", "password","password_confirmation"},
+        *               @OA\Property(property="current_password", type="current_password"),
+        *               @OA\Property(property="password", type="password"),
+        *               @OA\Property(property="password_confirmation", type="password_confirmation"),
+        *            ),
+        *        ),
+        *    ),
+        *      
+        *      @OA\Response(
+        *          response=200,
+        *          description="Password Updated Successfully",
+        *          @OA\JsonContent(            
+        *               example={
+        *            "code": 200,
+        *            "message": "Administration Password Updated successfully",
+        *            "data": {
+        *                "user": {
+        *                    "id": 1,
+        *                    "name": "John",
+        *                    "email": "johnn@example.com",
+        *                    "created_at": "2023-07-25T14:33:21.000000Z",
+        *                    "updated_at": "2023-07-26T10:58:04.000000Z"
+        *                },
+        *                "timestamp": "2023-07-26T10:58:04.524072Z"
+        *            }
+        *        })
+        *       ),
+                *      @OA\Response(
+        *          response=401,
+        *          description="Unauthorized",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "code": "401",
+        *                   "message": "Old Password is incorrect",
+        *               }
+        *       ),
+        *        ),
+        *      @OA\Response(
+        *          response=404,
+        *          description="Resource not found",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "code": "404",
+        *                   "message": "Administration not found",
+        *               }
+        *       ),
+        *       ),
+        *      @OA\Response(
+        *          response=400,
+        *          description="Bad Request",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "error": "Invalid token",
+        *                   "message": "The provided token is not in the expected format or is malformed."
+        *               }
+        *       ),
+        *       ),
+        *       @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent(            
+        *               example={
+        *                   "code": "422",
+        *                   "message": "The administration password could not be updated. Please check the provided data and try again.",
+        *               }
+        *       ),
+        *       ),
+        *     security={{"bearer_token":{}}}
+
+
+        * )
+        */
         public function resetPassword(Request $request)
         {
             $validated = $request->validate([
