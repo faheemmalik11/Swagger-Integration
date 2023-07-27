@@ -4,6 +4,7 @@
 * [Updating Controller](#updating-controller)
 * [Annotation List](#annotation-list)
 * [Explanation](#explanation)
+* [Adding Annotations To Routes](#adding-annotations-to-routes)
 
 ## Installation
 Install the swagger package for laravel:
@@ -176,3 +177,69 @@ or fully describe property if you dont want to place `@property` declaration for
  * @OA\PropertyIgnore("property_name")
  */
 
+```
+
+## Adding Annotations To Routes
+Now we can start adding annotations to our apis. For example we add annotations to our login api in AuthController.php
+```php
+
+    /**
+        * @OA\Post(
+        * path="/administration/login",
+        * operationId="authLogin",
+        * tags={"Administration"},
+        * summary="Administartion Login",
+        * description="Login Administartion Here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"email", "password"},
+        *               @OA\Property(property="email", type="email"),
+        *               @OA\Property(property="password", type="password")
+        *            ),
+        *        ),
+        *    ),
+        *      
+        *      @OA\Response(
+        *          response=200,
+        *          description="Login Successfully",
+        *          @OA\JsonContent(            
+        *               example={
+        *                 
+        *           "code": 200,
+        *            "data": {
+        *                "message": "Login successful",
+        *                "user": {
+        *                    "id": 1,
+        *                    "name": "Maze Administration",
+        *                    "email": "maze_administration@gmail.com",
+        *                    "created_at": "2023-07-25T14:33:21.000000Z",
+        *                    "updated_at": "2023-07-25T14:33:21.000000Z"
+        *                },
+        *                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW5pc3RyYXRpb24vbG9naW4iLCJpYXQiOjE2OTAzNTk4NzYsImV4cCI6MTY5MDM3NDI3NiwibmJmIjoxNjkwMzU5ODc2LCJqdGkiOiJyaE5XYlBRdWlTUTR4azhtIiwic3ViIjoiMSIsInBydiI6ImI5OWExMWZkYzVmNWRiMDE5NjM2ZmVkODQ2NWUyZDlkYzQ4Yzg1YzYifQ.rAYX1lKYZ-5L0VCwm7Ked6zKnc9zuMygSVVwNJET-YtikLV9RJ_J5G5iZOpkDSdDLFIUIWlybJJKy1cUvv2ofyzUd9gS0JavOJJ3bpUi928NyYqxQtrQvaWmlEVt9NdcUCayGQmDCkuZvir_sYtqhv0or3cHtF02IAKaLTZ-d0SNVgDIrq4rSTF0SCCaWquKhr6NIPLMRUVvGxWKntlUapWv1WtQAS2rxqlJi6RCmI8ULB8tpHgN-ZNY2L5u5TD42_hVzzBVe5j0SwwVA9NrKVU1Gp0xyDIBLQgLISx5dgG-DWgugdeCdJ4rPxkma4nYWzZTs2rkjVG7KlfYNRdE5PRvYgEI2d7kWI8YkXqsPjUgQXvUy47bZT9wj9cij4bX81endH7ijfd6lYzV-yqgTYPgqwnAr0hl_euSjRDhDxz3KFpnsMaov-l4Eqo7TrBPcT4m5ScEB41ZKEb6moAdmwkCleh5OOmuEcRyEYqY_rtWn80HEtTjSBwo2CR0S4zYYN89R66r8p0-fpQlSJmeiYNl2yS0hvPwhE3Us9yYZbGrZc2fKWx7V65E6ppbZ3gp2RMQKB0GPGI6ApyZvjIRBC7wpNASBG_RLBZK4w8ER24oZu8YVC4e0wtg-rVkWRD5lYopD_Gf97LgwVSghcuMUbjIBgEWJSSGyUmheM1k4Fg",
+        *                "timestamp": "2023-07-26T08:24:36.784868Z"
+        *            }
+        * 
+        *       })
+        *       ),
+        *      @OA\Response(
+        *          response=401,
+        *          description="Unauthorized",
+        *          @OA\JsonContent(            
+        *               example={
+        *                 
+        *           "code": 401,
+        *                "message": "Invalid credentials",
+        *                "timestamp": "2023-07-26T08:24:36.784868Z"
+        * 
+        *       })
+        *       ),
+
+
+        * )
+        */
+```
+Like this, we are going to add these annotations to other apis as well.

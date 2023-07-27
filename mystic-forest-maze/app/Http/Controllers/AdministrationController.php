@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmployeeIncrementHistoryModel;
 use App\Models\EmployeesModel;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,67 @@ class AdministrationController extends Controller
 
 
     // START: Administrations Apis
+
+    /**
+        * @OA\Post(
+        * path="/administration/login",
+        * operationId="authLogin",
+        * tags={"Administration"},
+        * summary="Administartion Login",
+        * description="Login Administartion Here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"email", "password"},
+        *               @OA\Property(property="email", type="email"),
+        *               @OA\Property(property="password", type="password")
+        *            ),
+        *        ),
+        *    ),
+        *      
+        *      @OA\Response(
+        *          response=200,
+        *          description="Login Successfully",
+        *          @OA\JsonContent(            
+        *               example={
+        *                 
+        *           "code": 200,
+        *            "data": {
+        *                "message": "Login successful",
+        *                "user": {
+        *                    "id": 1,
+        *                    "name": "Maze Administration",
+        *                    "email": "maze_administration@gmail.com",
+        *                    "created_at": "2023-07-25T14:33:21.000000Z",
+        *                    "updated_at": "2023-07-25T14:33:21.000000Z"
+        *                },
+        *                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW5pc3RyYXRpb24vbG9naW4iLCJpYXQiOjE2OTAzNTk4NzYsImV4cCI6MTY5MDM3NDI3NiwibmJmIjoxNjkwMzU5ODc2LCJqdGkiOiJyaE5XYlBRdWlTUTR4azhtIiwic3ViIjoiMSIsInBydiI6ImI5OWExMWZkYzVmNWRiMDE5NjM2ZmVkODQ2NWUyZDlkYzQ4Yzg1YzYifQ.rAYX1lKYZ-5L0VCwm7Ked6zKnc9zuMygSVVwNJET-YtikLV9RJ_J5G5iZOpkDSdDLFIUIWlybJJKy1cUvv2ofyzUd9gS0JavOJJ3bpUi928NyYqxQtrQvaWmlEVt9NdcUCayGQmDCkuZvir_sYtqhv0or3cHtF02IAKaLTZ-d0SNVgDIrq4rSTF0SCCaWquKhr6NIPLMRUVvGxWKntlUapWv1WtQAS2rxqlJi6RCmI8ULB8tpHgN-ZNY2L5u5TD42_hVzzBVe5j0SwwVA9NrKVU1Gp0xyDIBLQgLISx5dgG-DWgugdeCdJ4rPxkma4nYWzZTs2rkjVG7KlfYNRdE5PRvYgEI2d7kWI8YkXqsPjUgQXvUy47bZT9wj9cij4bX81endH7ijfd6lYzV-yqgTYPgqwnAr0hl_euSjRDhDxz3KFpnsMaov-l4Eqo7TrBPcT4m5ScEB41ZKEb6moAdmwkCleh5OOmuEcRyEYqY_rtWn80HEtTjSBwo2CR0S4zYYN89R66r8p0-fpQlSJmeiYNl2yS0hvPwhE3Us9yYZbGrZc2fKWx7V65E6ppbZ3gp2RMQKB0GPGI6ApyZvjIRBC7wpNASBG_RLBZK4w8ER24oZu8YVC4e0wtg-rVkWRD5lYopD_Gf97LgwVSghcuMUbjIBgEWJSSGyUmheM1k4Fg",
+        *                "timestamp": "2023-07-26T08:24:36.784868Z"
+        *            }
+        * 
+        *       })
+        *       ),
+        *      @OA\Response(
+        *          response=401,
+        *          description="Unauthorized",
+        *          @OA\JsonContent(            
+        *               example={
+        *                 
+        *           "code": 401,
+        *                "message": "Invalid credentials",
+        *                "timestamp": "2023-07-26T08:24:36.784868Z"
+        * 
+        *       })
+        *       ),
+
+
+        * )
+        */
+
+        
         public function login(Request $request) {
 
             $request->validate([
@@ -29,21 +91,20 @@ class AdministrationController extends Controller
 
 
             $credentials = ['email' => $request->email, 'password' => $request->password];
-
-            $token = Auth::guard('administration')->attempt($credentials, true);
-            $timestamp = Carbon::now();
-            if (!$token) {
-            
+            try{
+                $token = Auth::guard('administration')->attempt($credentials, true);
+            }catch(Exception $e){
                 return response()->json([
-                    "code"=> 401,
-                    "message"=> "Invalid credentials",
-                    'timestamp'=> $timestamp
+                    "code" => 409,
+                    "message" => "Attempt failed, tokeen cannot be created "
                 ]);
             }
+            $timestamp = Carbon::now();
+       
 
             $administration = Auth::guard('administration')->user();
 
-            if($token) {
+            if($administration) {
                 return response()->json([
                     "code"=> 200,
                     'data'=>[
@@ -55,19 +116,14 @@ class AdministrationController extends Controller
                 ]);
             } else {
                 return response()->json([
-                    'code' => 409,
-                    'message' => 'Inactive Administrations',
-                    'data' => [
-                        'user' => $administration,
-                        'token' => $token,
-                        'timestamp'=> $timestamp
-                    ]
-                ]);
+                    "code"=> 401,
+                    "message"=> "Invalid credentials",
+                    'timestamp'=> $timestamp
+                ],401);
             }
 
         }
-
-
+  
         public function logout(): JsonResponse
         {
             $timestamp = Carbon::now();
@@ -85,7 +141,7 @@ class AdministrationController extends Controller
             
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|max:255|unique:administrations,email,'.Auth()->user()->id,
+                'email' => 'required|string|max:255|email|unique:administrations,email,'.Auth()->user()->id,
             ]);
             $timestamp = Carbon::now();
             if (!is_array($validated)) {
@@ -93,10 +149,17 @@ class AdministrationController extends Controller
                     'code'=>409,
                     'message' => 'Validation failed',
                     'timestamp' =>$timestamp
+                ],409);
+            }
+            try{
+                $administration = Administration::find(Auth()->guard('administration')->user()->id);
+            }catch(Exception $e){
+                return response()->json([
+                    "code" => 404,
+                    "message" => "Administration not found",
                 ]);
             }
-
-            $administration = Administration::find(Auth()->guard('administration')->user()->id);
+            
             
             $administration->name = ucfirst($request->name);
             $administration->email = $request->email;
@@ -114,6 +177,7 @@ class AdministrationController extends Controller
             ]);
         }
           
+    
         public function resetPassword(Request $request)
         {
             $validated = $request->validate([
@@ -135,19 +199,27 @@ class AdministrationController extends Controller
                     'code'=>401,
                     'message' => 'Old Password is Incorrect!',
                     'timestamp'=>$timestamp
-                ]);
+                ],401);
 
             }
-
-            $administration = Administration::find(Auth()->user()->id);
+            try {
+                $administration = Administration::find(Auth()->user()->id);
+            }catch (Exception $e) {
+                return response()->json([
+                    'code'=>404,
+                    'message' => 'Adnministration not found',
+                    'timestamp' => $timestamp
+                ],404);
+            }
+            
             $token = Auth::guard('administration')->login($administration);
 
             if (!$token) {
                 return response()->json([
-                    'code'=>409,
-                    'message' => 'User not updated',
+                    'code'=>422,
+                    'message' => "The administration password could not be updated. Please check the provided data and try again.",
                     'timestamp' => $timestamp
-                ]);
+                ],422);
             }
 
             return response()->json([
