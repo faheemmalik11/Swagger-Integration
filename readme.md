@@ -5,6 +5,7 @@
 * [Annotation List](#annotation-list)
 * [Explanation](#explanation)
 * [Adding Annotations To Routes](#adding-annotations-to-routes)
+* [Adding Authorization](#adding-authorization)
 
 ## Installation
 Install the swagger package for laravel:
@@ -243,3 +244,18 @@ Now we can start adding annotations to our apis. For example we add annotations 
         */
 ```
 Like this, we are going to add these annotations to other apis as well.
+
+
+## Adding Authorization
+We will also add the authorization in our swagger apis, so request could be authenticated first. For this to do we have to define secuirtScheme in swagger config file.
+```sh
+bearer_token' => [ // Unique name of security
+                    'type' => 'apiKey', // Valid values are "basic", "apiKey" or "oauth2".
+                    'description' => 'Enter token in format (Bearer token)',
+                    'name' => 'Authorization', // The name of the header or query parameter to be used.
+                    'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                 ],
+```
+we will add this in the secuirtSchemes of swagger config file.
+
+After adding this, we just have to add `security={{"bearer_token":{}}}` at the end of annotations of apis we want to secure.
