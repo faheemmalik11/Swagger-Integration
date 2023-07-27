@@ -6,6 +6,9 @@
 * [Explanation](#explanation)
 * [Adding Annotations To Routes](#adding-annotations-to-routes)
 * [Adding Authorization](#adding-authorization)
+* [Generate Swagger](#generate-swagger)
+* [Open the Documentation](#opening-the-documentation)
+* [Screenshots](#screenshots)
 
 ## Installation
 Install the swagger package for laravel:
@@ -259,3 +262,27 @@ bearer_token' => [ // Unique name of security
 we will add this in the secuirtSchemes of swagger config file.
 
 After adding this, we just have to add `security={{"bearer_token":{}}}` at the end of annotations of apis we want to secure.
+
+
+## Generate Swagger
+To generate the swagger documentation file just run php artisan l5-swagger: generate command.
+```sh
+php artisan l5-swagger:generate
+```
+
+## Open the Documentation
+```sh
+http://localhos/projectname/api/documentation
+```
+In our project it is:
+```sh
+http://127.0.0.1:8000/api/documentation
+```
+
+## Screenshots 
+
+![Laravel OpenAPI 01](/mystic-forest-maze/public/Screenshot%20from%202023-07-27%2019-15-38.png)
+
+![Laravel OpenAPI 02](/mystic-forest-maze/public/Screenshot%20from%202023-07-27%2019-15-57.png)
+
+![Laravel Open 03](/mystic-forest-maze/public/Screenshot%20from%202023-07-27%2019-16-36.png)
