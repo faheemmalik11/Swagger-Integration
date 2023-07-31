@@ -1,0 +1,1159 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mystic Forest Maze Apis",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/administration/login": {
+            "post": {
+                "tags": [
+                    "Administration"
+                ],
+                "summary": "Administartion Login",
+                "description": "Login Administartion Here",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "Login successful",
+                                        "user": {
+                                            "id": 1,
+                                            "name": "Maze Administration",
+                                            "email": "maze_administration@gmail.com",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        },
+                                        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW5pc3RyYXRpb24vbG9naW4iLCJpYXQiOjE2OTAzNTk4NzYsImV4cCI6MTY5MDM3NDI3NiwibmJmIjoxNjkwMzU5ODc2LCJqdGkiOiJyaE5XYlBRdWlTUTR4azhtIiwic3ViIjoiMSIsInBydiI6ImI5OWExMWZkYzVmNWRiMDE5NjM2ZmVkODQ2NWUyZDlkYzQ4Yzg1YzYifQ.rAYX1lKYZ-5L0VCwm7Ked6zKnc9zuMygSVVwNJET-YtikLV9RJ_J5G5iZOpkDSdDLFIUIWlybJJKy1cUvv2ofyzUd9gS0JavOJJ3bpUi928NyYqxQtrQvaWmlEVt9NdcUCayGQmDCkuZvir_sYtqhv0or3cHtF02IAKaLTZ-d0SNVgDIrq4rSTF0SCCaWquKhr6NIPLMRUVvGxWKntlUapWv1WtQAS2rxqlJi6RCmI8ULB8tpHgN-ZNY2L5u5TD42_hVzzBVe5j0SwwVA9NrKVU1Gp0xyDIBLQgLISx5dgG-DWgugdeCdJ4rPxkma4nYWzZTs2rkjVG7KlfYNRdE5PRvYgEI2d7kWI8YkXqsPjUgQXvUy47bZT9wj9cij4bX81endH7ijfd6lYzV-yqgTYPgqwnAr0hl_euSjRDhDxz3KFpnsMaov-l4Eqo7TrBPcT4m5ScEB41ZKEb6moAdmwkCleh5OOmuEcRyEYqY_rtWn80HEtTjSBwo2CR0S4zYYN89R66r8p0-fpQlSJmeiYNl2yS0hvPwhE3Us9yYZbGrZc2fKWx7V65E6ppbZ3gp2RMQKB0GPGI6ApyZvjIRBC7wpNASBG_RLBZK4w8ER24oZu8YVC4e0wtg-rVkWRD5lYopD_Gf97LgwVSghcuMUbjIBgEWJSSGyUmheM1k4Fg",
+                                        "timestamp": "2023-07-26T08:24:36.784868Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 401,
+                                    "message": "Invalid credentials",
+                                    "timestamp": "2023-07-26T08:24:36.784868Z"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/administration/logout": {
+            "get": {
+                "tags": [
+                    "Administration"
+                ],
+                "summary": "Administartion Logout",
+                "description": "Logout Administartion Here",
+                "operationId": "Logout",
+                "responses": {
+                    "200": {
+                        "description": "Logout Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "message": "Logout successful",
+                                    "timestamp": "2023-07-26T08:24:36.784868Z"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/administration/update": {
+            "put": {
+                "tags": [
+                    "Administration"
+                ],
+                "summary": "Administartion update",
+                "description": "update Administartion Here",
+                "operationId": "Update",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "updated Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "message": "administration updated successfully",
+                                    "data": {
+                                        "user": {
+                                            "id": 1,
+                                            "name": "John",
+                                            "email": "johnn@example.com",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-26T10:58:04.000000Z"
+                                        },
+                                        "timestamp": "2023-07-26T10:58:04.524072Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 404,
+                                    "message": "Administration not found"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The administration could not be updated. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/administration/resetPassword": {
+            "put": {
+                "tags": [
+                    "Administration"
+                ],
+                "summary": "Administartion Update Password",
+                "description": "Update Administartion Password Here",
+                "operationId": "resetPassword",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "current_password",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "current_password": {
+                                        "type": "current_password"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password_confirmation"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password Updated Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "message": "Administration Password Updated successfully",
+                                    "data": {
+                                        "user": {
+                                            "id": 1,
+                                            "name": "John",
+                                            "email": "johnn@example.com",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-26T10:58:04.000000Z"
+                                        },
+                                        "timestamp": "2023-07-26T10:58:04.524072Z"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "401",
+                                    "message": "Old Password is incorrect"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "Administration not found"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The administration password could not be updated. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/code/create": {
+            "post": {
+                "tags": [
+                    "Code"
+                ],
+                "summary": "Code Create",
+                "description": "Code Creation Here",
+                "operationId": "create",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "value"
+                                ],
+                                "properties": {
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Code Created Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "code created successfully",
+                                        "code": {
+                                            "value": "A7GH198",
+                                            "updated_at": "2023-07-26T12:53:07.000000Z",
+                                            "created_at": "2023-07-26T12:53:07.000000Z",
+                                            "id": 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The code could not be create. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/code/update/{id}": {
+            "put": {
+                "tags": [
+                    "Code"
+                ],
+                "summary": "Code Update",
+                "description": "Code Updation Here",
+                "operationId": "CodeUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the code",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "value"
+                                ],
+                                "properties": {
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Code Updated Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "code update successfully",
+                                        "code": {
+                                            "value": "A422665",
+                                            "updated_at": "2023-07-26T12:53:07.000000Z",
+                                            "created_at": "2023-07-26T12:53:07.000000Z",
+                                            "id": 1
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "no record found against given id"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The code could not be updated. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/code/{id}": {
+            "get": {
+                "tags": [
+                    "Code"
+                ],
+                "summary": "Get Code By ID",
+                "description": "Code is retrieved by id",
+                "operationId": "CodeGet",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the code",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code Retrieved Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "code retrieved successfully",
+                                        "code": {
+                                            "id": 1,
+                                            "value": "1jEuOq",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "no record found against given id"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/code/": {
+            "get": {
+                "tags": [
+                    "Code"
+                ],
+                "summary": "Get All Codes",
+                "description": "Code are retrieved",
+                "operationId": "CodeGetAll",
+                "responses": {
+                    "200": {
+                        "description": "Code Retrieved Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "code retrieved successfully",
+                                        "code": {
+                                            "id": 1,
+                                            "value": "1jEuOq",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        },
+                                        "0": {
+                                            "id": 2,
+                                            "value": "Kj2aX",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        },
+                                        "1": {
+                                            "id": 3,
+                                            "value": "LaYA1",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "No Records Found"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/code/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Code"
+                ],
+                "summary": "Delete Code",
+                "description": "Code can be deleted here",
+                "operationId": "CodeDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Code",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code Retrieved Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "code deleted successfully",
+                                        "code": {
+                                            "id": 1,
+                                            "value": "1jEuOq",
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-25T14:33:21.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "No record found against given id"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/maze_info/update": {
+            "put": {
+                "tags": [
+                    "Maze Info"
+                ],
+                "summary": "Maze Info Update",
+                "description": "maze_info Updation Here",
+                "operationId": "maze_infoUpdate",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "logo",
+                                    "bg-color",
+                                    "font"
+                                ],
+                                "properties": {
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "bg-color": {
+                                        "type": "string"
+                                    },
+                                    "font": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Maze Info Update Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "Maze Info updated successfully",
+                                        "maze_info": {
+                                            "id": 1,
+                                            "logo": "images/64c127d67ae1c.png",
+                                            "bg-color": "#3891CB",
+                                            "font": "Arial",
+                                            "administration_id": 1,
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-26T14:04:06.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "nmaze info not found"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The maze_info could not be updated. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/maze_info": {
+            "get": {
+                "tags": [
+                    "Maze Info"
+                ],
+                "summary": "Get Maze Info",
+                "description": "Maze Info is retrieved here",
+                "operationId": "mazeInfo",
+                "responses": {
+                    "200": {
+                        "description": "Maze Info fetched Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "Maze Info fetched successfully",
+                                        "maze_info": {
+                                            "id": 1,
+                                            "logo": "images/64c127d67ae1c.png",
+                                            "bg-color": "#3891CB",
+                                            "font": "Arial",
+                                            "administration_id": 1,
+                                            "created_at": "2023-07-25T14:33:21.000000Z",
+                                            "updated_at": "2023-07-26T14:04:06.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "Maze Info Not Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/result": {
+            "get": {
+                "tags": [
+                    "Result"
+                ],
+                "summary": "Get All Results",
+                "description": "All results are fetched from the database",
+                "operationId": "AllResultsGet",
+                "responses": {
+                    "200": {
+                        "description": "Code Retrieved Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "Results Fetched successfully",
+                                        "results": [
+                                            {
+                                                "id": 13,
+                                                "completion_time": "03:24",
+                                                "team": "Avengers",
+                                                "created_at": "2023-07-26T14:34:53.000000Z",
+                                                "updated_at": "2023-07-26T14:34:53.000000Z"
+                                            },
+                                            {
+                                                "team": "Ryzeos",
+                                                "completion_time": "01:32",
+                                                "created_at": "2023-07-26T14:52:55.000000Z",
+                                                "updated_at": "2023-07-26T14:52:55.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "No Records Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Result"
+                ],
+                "summary": "Result Create",
+                "description": "Result Creation Here",
+                "operationId": "result",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "completion_time",
+                                    "team",
+                                    "codes"
+                                ],
+                                "properties": {
+                                    "completion_time": {
+                                        "type": "string"
+                                    },
+                                    "team": {
+                                        "type": "string"
+                                    },
+                                    "codes": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Result Created Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "results created successfully",
+                                        "result": {
+                                            "completion_time": "03:24",
+                                            "team": "Avengers",
+                                            "updated_at": "2023-07-26T14:52:55.000000Z",
+                                            "created_at": "2023-07-26T14:52:55.000000Z",
+                                            "id": 14
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Codes Verification failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 401,
+                                    "data": {
+                                        "message": "Codes could not be verified",
+                                        "codes": {
+                                            "adsda": false,
+                                            "tHG2Mi": true,
+                                            "X1ePIz": true,
+                                            "A7GH198": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "422",
+                                    "message": "The result could not be created. Please check the provided data and try again."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/result/{time}": {
+            "get": {
+                "tags": [
+                    "Result"
+                ],
+                "summary": "Get Results",
+                "description": "Result are fetched by giving day week or year as parameter",
+                "operationId": "ResultGet",
+                "parameters": [
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "Day, week, or year as parameter",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Code Retrieved Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": 200,
+                                    "data": {
+                                        "message": "Results Fetched successfully",
+                                        "results": [
+                                            {
+                                                "id": 13,
+                                                "completion_time": "03:24",
+                                                "team": "Avengers",
+                                                "created_at": "2023-07-26T14:34:53.000000Z",
+                                                "updated_at": "2023-07-26T14:34:53.000000Z"
+                                            },
+                                            {
+                                                "team": "Ryzeos",
+                                                "completion_time": "01:32",
+                                                "created_at": "2023-07-26T14:52:55.000000Z",
+                                                "updated_at": "2023-07-26T14:52:55.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "error": "Invalid token",
+                                    "message": "The provided token is not in the expected format or is malformed."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "code": "404",
+                                    "message": "No Records Found"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer token)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

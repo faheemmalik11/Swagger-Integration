@@ -1,5 +1,6 @@
 # Swagger Integration For Mystic-Forest-Maze
 
+* [Run Project After Clone](#run-project-after-clone)
 * [Installation](#installation)
 * [Updating Controller](#updating-controller)
 * [Annotation List](#annotation-list)
@@ -7,8 +8,35 @@
 * [Adding Annotations To Routes](#adding-annotations-to-routes)
 * [Adding Authorization](#adding-authorization)
 * [Generate Swagger](#generate-swagger)
-* [Open the Documentation](#opening-the-documentation)
+* [Open the Documentation](#open-the-documentation)
 * [Screenshots](#screenshots)
+
+## Run Project After Clone
+
+1. 
+```sh  
+composer update
+```
+2. make .env file and copy .env.example to .env 
+
+3. configure .env
+
+4. run 
+```sh
+php artisan key:generate
+```
+5. run
+```sh
+php artisan migrate
+```
+6. run
+```sh
+php artisan db:seed
+```
+7. Lastly:
+```sh
+php artisan l5-swagger:generate
+```
 
 ## Installation
 Install the swagger package for laravel:
