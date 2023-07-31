@@ -25,6 +25,10 @@ composer update
 ```sh
 php artisan key:generate
 ```
+and 
+```sh
+php artisan jwt:secret
+```
 5. run
 ```sh
 php artisan migrate
